@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import RegionDetail from '../RegionDetails/';
 /*
  *
  */
-const covidPath = 'https://openpuglia.org/api/?q=getdatapccovid-19';
+const covidPath = 'https://openpuglia.org/api/?q=getdatapccovid-19&mode=ts';
 
 const RegionList = () => {
   const [regionList, setList] = useState([]);
@@ -31,10 +31,19 @@ const RegionList = () => {
       fetch(covidPath, httpConfig)
         .then(resp => resp.json())
         .then(data => {
+          console.log(data)
           data.map(elm => {
             // console.log(elm['codice regione']);
           });
-          setList(data);
+
+          const date = new Date(Date.now())
+          let year = date.getFullYear();
+          let month = ("0" + (date.getMonth() + 1)).slice(-2);
+          let day = ("0" + date.getDate()).slice(-2);
+
+          const array = data.filter(obj => obj.data === `${year}-${month}-${day}`)
+          console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>', array)
+          setList(array);
         });
     },
     [
@@ -74,7 +83,7 @@ const RegionList = () => {
             alignItems: 'center',
             borderBottomWidth: 1,
           }}>
-          <Text style={{fontSize: 25, color: 'red'}}>Lista Regioni</Text>
+          <Text style={{ fontSize: 25, color: 'red' }}>Lista Regioni</Text>
           <Text>Dati Aggiornati ogni giorno alle 19:30</Text>
         </View>
         {regionList.length > 0 ? (
@@ -85,7 +94,7 @@ const RegionList = () => {
               paddingBottom: 50,
             }}
             data={regionList}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <TouchableOpacity
                 onPress={() => goToPage(item)}
                 style={{
@@ -98,23 +107,23 @@ const RegionList = () => {
                   borderRadius: 5,
                   margin: 1,
                 }}>
-                <Text style={{fontSize: 18}}>{item.regione}</Text>
+                <Text style={{ fontSize: 18 }}>{item.regione}</Text>
               </TouchableOpacity>
             )}
             keyExtractor={item => item.codice}></FlatList>
         ) : (
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: 'lightgray',
-              alignItems: 'center',
-              justifyContent: 'center',
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: 'lightgray',
+                alignItems: 'center',
+                justifyContent: 'center',
 
-              width: '100%',
-            }}>
-            <ActivityIndicator size={40} color="blue" />
-          </View>
-        )}
+                width: '100%',
+              }}>
+              <ActivityIndicator size={40} color="blue" />
+            </View>
+          )}
       </View>
     );
   } else {
