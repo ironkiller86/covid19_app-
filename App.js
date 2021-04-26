@@ -5,22 +5,16 @@
  * @format
  * @flow
  */
-
 import React from 'react';
 import RegionList from './Components/RegionList';
 import {
   SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
 } from 'react-native';
 
 const App = () => {
   console.disableYellowBox = true;
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <RegionList />
     </SafeAreaView>
   );

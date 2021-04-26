@@ -39,6 +39,7 @@ const RegionList = () => {
             delete data.codice_nuts_2;
             delete data.lat;
             delete data.long
+            data.data = data.data.substring(0, 10)
             Object.keys(data).map(key => {
               if (data[key].length === 0) {
                 delete data[key]
@@ -57,7 +58,6 @@ const RegionList = () => {
   const goToPage = item => {
     setFlagPage(!flagPage);
     ref.current = item;
-    console.log(item['ricoverati con sintomi']);
   };
   /*
    *
