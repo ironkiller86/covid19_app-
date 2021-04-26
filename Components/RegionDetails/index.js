@@ -2,43 +2,52 @@ import React from 'react';
 import {
   View,
   Text,
-  FlatList,
   TouchableOpacity,
-  ActivityIndicator,
   ScrollView,
 } from 'react-native';
 
 const RegionDetails = props => {
   const regionData = props.regionData;
-
-  Object.keys(regionData).map(elm => {
-    console.log(elm, regionData[elm]);
-  });
-
+  /**
+   * 
+   * @param {*} dato 
+   * @returns 
+   */
   const setCss = dato => {
-    console.log('setcss', dato);
     switch (dato) {
       case 'deceduti':
         return {
           color: 'red',
           fontWeight: 'bold',
         };
-      case 'dimessi guariti':
+      case 'dimessi_guariti':
         return {
           color: 'green',
           fontWeight: 'bold',
         };
 
-      case 'ricoverati con sintomi':
+      case 'ricoverati_con_sintomi':
         return {
           color: 'orange',
           fontWeight: 'bold',
         };
+      case 'nuovi_positivi':
+        return {
+          color: 'blue',
+          fontWeight: 'bold',
+        };
+      case 'denominazione_regione':
+        return {
+          color: 'brown',
+          fontWeight: 'bold',
+        };
     }
   };
-
+  /*
+   * 
+   */
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View
         style={{
           flex: 1,
@@ -56,7 +65,7 @@ const RegionDetails = props => {
             paddingLeft: 5,
             borderBottomWidth: 1,
           }}>
-          <Text style={{fontSize: 20}}>{regionData.regione}</Text>
+          <Text style={{ fontSize: 20 }}>{regionData.regione}</Text>
           <TouchableOpacity
             style={{
               backgroundColor: 'lightblue',
@@ -68,7 +77,7 @@ const RegionDetails = props => {
               width: 80,
             }}
             onPress={props.turnBack}>
-            <Text style={{fontSize: 18}}>Home</Text>
+            <Text style={{ fontSize: 18 }}>Home</Text>
           </TouchableOpacity>
         </View>
         {Object.keys(regionData).map(key => {
@@ -83,13 +92,13 @@ const RegionDetails = props => {
               }}>
               <View
                 style={{
-                  flex: 1,
+                  flex: 2,
                   height: 40,
 
                   justifyContent: 'center',
                   paddingLeft: 5,
                 }}>
-                <Text style={{fontSize: 13, fontWeight: 'bold'}}>
+                <Text ellipsizeMode='tail' numberOfLines={1} style={{ fontSize: 13, fontWeight: 'bold' }}>
                   {key.toLocaleUpperCase()}:
                 </Text>
               </View>
@@ -97,11 +106,10 @@ const RegionDetails = props => {
                 style={{
                   flex: 1,
                   height: 40,
-
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={[{fontSize: 17}, setCss(key)]}>
+                <Text style={[{ fontSize: 17 }, setCss(key)]}>
                   {regionData[key]}
                 </Text>
               </View>
@@ -112,4 +120,7 @@ const RegionDetails = props => {
     </ScrollView>
   );
 };
+/*
+ * 
+ */
 export default RegionDetails;

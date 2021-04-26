@@ -11,45 +11,49 @@ import RegionDetail from '../RegionDetails/';
 /*
  *
  */
-const covidPath = 'https://openpuglia.org/api/?q=getdatapccovid-19&mode=ts';
-
+const covidPath = 'https://covid-19-ita-api.herokuapp.com/covidApi';
+/**
+ * 
+ * @returns 
+ */
 const RegionList = () => {
   const [regionList, setList] = useState([]);
   const [flagPage, setFlagPage] = useState(false);
   /*
-   *
+   * 
    */
-  const httpConfig = {
-    method: 'GET',
-  };
   let ref = useRef({});
   /*
    *
    */
   useEffect(
     () => {
-      fetch(covidPath, httpConfig)
+      fetch(covidPath)
         .then(resp => resp.json())
         .then(data => {
-          console.log(data)
-          data.map(elm => {
-            // console.log(elm['codice regione']);
-          });
-
-          const date = new Date(Date.now())
-          let year = date.getFullYear();
-          let month = ("0" + (date.getMonth() + 1)).slice(-2);
-          let day = ("0" + date.getDate()).slice(-2);
-
-          const array = data.filter(obj => obj.data === `${year}-${month}-${day}`)
-          console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>', array)
-          setList(array);
+          data.data.forEach(data => {
+            delete data.note;
+            delete data.note_test;
+            delete data.note_casi;
+            delete data.codice_nuts_1;
+            delete data.codice_nuts_2;
+            delete data.lat;
+            delete data.long
+            Object.keys(data).map(key => {
+              if (data[key].length === 0) {
+                delete data[key]
+              }
+            })
+          })
+          setList([...data.data])
         });
     },
-    [
-      /*regionList*/
-    ],
+    [],
   );
+  /*
+   * 
+   * @param {*} item 
+   */
   const goToPage = item => {
     setFlagPage(!flagPage);
     ref.current = item;
@@ -107,23 +111,23 @@ const RegionList = () => {
                   borderRadius: 5,
                   margin: 1,
                 }}>
-                <Text style={{ fontSize: 18 }}>{item.regione}</Text>
+                <Text style={{ fontSize: 18 }}>{item.denominazione_regione}</Text>
               </TouchableOpacity>
             )}
             keyExtractor={item => item.codice}></FlatList>
         ) : (
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: 'lightgray',
-                alignItems: 'center',
-                justifyContent: 'center',
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'lightgray',
+              alignItems: 'center',
+              justifyContent: 'center',
 
-                width: '100%',
-              }}>
-              <ActivityIndicator size={40} color="blue" />
-            </View>
-          )}
+              width: '100%',
+            }}>
+            <ActivityIndicator size={40} color="blue" />
+          </View>
+        )}
       </View>
     );
   } else {
