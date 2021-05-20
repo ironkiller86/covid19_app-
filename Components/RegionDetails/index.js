@@ -47,54 +47,50 @@ const RegionDetails = props => {
    * 
    */
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <>
       <View
         style={{
-          flex: 1,
-          backgroundColor: 'lightgray',
-          flexDirection: 'column',
+          flexDirection: 'row',
+          //   backgroundColor: 'lightgreen',
+          height: 80,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingRight: 5,
+          paddingLeft: 5,
+          borderBottomWidth: 1,
         }}>
-        <View
+        <Text style={{ fontSize: 26, fontWeight: 'bold', color: 'white' }}>{regionData.denominazione_regione}</Text>
+        <TouchableOpacity
           style={{
-            flexDirection: 'row',
-            backgroundColor: 'lightgreen',
-            height: 80,
+            backgroundColor: 'lightblue',
+            borderWidth: 1,
+            borderRadius: 5,
+            justifyContent: 'center',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingRight: 5,
-            paddingLeft: 5,
-            borderBottomWidth: 1,
-          }}>
-          <Text style={{ fontSize: 20 }}>{regionData.regione}</Text>
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'lightblue',
-              borderWidth: 1,
-              borderRadius: 5,
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 50,
-              width: 80,
-            }}
-            onPress={props.turnBack}>
-            <Text style={{ fontSize: 18 }}>Home</Text>
-          </TouchableOpacity>
-        </View>
-        {Object.keys(regionData).map(key => {
+            height: 50,
+            width: 80,
+          }}
+          onPress={props.turnBack}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Home</Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        {Object.keys(regionData).map((key, index) => {
           return (
             <View
+              key={index}
               style={{
                 flex: 1,
-
+                borderRadius: 5,
                 flexDirection: 'row',
                 borderWidth: 1,
                 margin: 1,
+
               }}>
               <View
                 style={{
                   flex: 2,
                   height: 40,
-
                   justifyContent: 'center',
                   paddingLeft: 5,
                 }}>
@@ -109,15 +105,16 @@ const RegionDetails = props => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={[{ fontSize: 17 }, setCss(key)]}>
+                <Text style={[{ fontSize: 17, color: 'white', }, setCss(key)]}>
                   {regionData[key]}
                 </Text>
               </View>
             </View>
           );
         })}
-      </View>
-    </ScrollView>
+
+      </ScrollView>
+    </>
   );
 };
 /*

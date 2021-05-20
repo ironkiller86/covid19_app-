@@ -6,16 +6,19 @@
  * @flow
  */
 import React from 'react';
-import RegionList from './Components/RegionList';
+import MainScreen from './Components/MainScreen';
 import {
   SafeAreaView,
+  ImageBackground
 } from 'react-native';
 
 const App = () => {
-  console.disableYellowBox = true;
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <RegionList />
+      <ImageBackground source={require('./img/home.jpg')} style={{ flex: 1, resizeMode: 'contain' }}>
+        <MainScreen />
+      </ImageBackground>
     </SafeAreaView>
   );
 };
