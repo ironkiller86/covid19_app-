@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 
 const RegionDetails = props => {
   const regionData = props.regionData;
   /**
-   * 
-   * @param {*} dato 
-   * @returns 
+   *
+   * @param {*} dato
+   * @returns
    */
   const setCss = dato => {
     switch (dato) {
@@ -44,7 +39,7 @@ const RegionDetails = props => {
     }
   };
   /*
-   * 
+   *
    */
   return (
     <>
@@ -59,7 +54,9 @@ const RegionDetails = props => {
           paddingLeft: 5,
           borderBottomWidth: 1,
         }}>
-        <Text style={{ fontSize: 26, fontWeight: 'bold', color: 'white' }}>{regionData.denominazione_regione}</Text>
+        <Text style={{fontSize: 26, fontWeight: 'bold', color: 'white'}}>
+          {regionData.denominazione_regione}
+        </Text>
         <TouchableOpacity
           style={{
             backgroundColor: 'lightblue',
@@ -71,10 +68,10 @@ const RegionDetails = props => {
             width: 80,
           }}
           onPress={props.turnBack}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Home</Text>
+          <Text style={{fontSize: 18, fontWeight: 'bold'}}>Home</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
         {Object.keys(regionData).map((key, index) => {
           return (
             <View
@@ -85,7 +82,6 @@ const RegionDetails = props => {
                 flexDirection: 'row',
                 borderWidth: 1,
                 margin: 1,
-
               }}>
               <View
                 style={{
@@ -94,7 +90,10 @@ const RegionDetails = props => {
                   justifyContent: 'center',
                   paddingLeft: 5,
                 }}>
-                <Text ellipsizeMode='tail' numberOfLines={1} style={{ fontSize: 13, fontWeight: 'bold' }}>
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={{fontSize: 13, fontWeight: 'bold'}}>
                   {key.toLocaleUpperCase()}:
                 </Text>
               </View>
@@ -105,19 +104,18 @@ const RegionDetails = props => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={[{ fontSize: 17, color: 'white', }, setCss(key)]}>
+                <Text style={[{fontSize: 17, color: 'white'}, setCss(key)]}>
                   {regionData[key]}
                 </Text>
               </View>
             </View>
           );
         })}
-
       </ScrollView>
     </>
   );
 };
 /*
- * 
+ *
  */
 export default RegionDetails;
