@@ -1,15 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {View, Text} from 'react-native';
-
+import {apiKey} from '../../apiKey';
 import RegionDetail from '../RegionDetails/';
 import Spinner from '../spinner';
 import CountryList from '../countryList/';
 /*
  *
  */
-const covidPath =
-  'https://covid-19-ita-api.herokuapp.com/covidApi/v1/italy?apiKey=82cec605-d305-4df7-8c98-78e13b335da3&orderBy=nuovi_positivi&sortBy=desc';
+const covidPath = `https://covid-19-ita-api.herokuapp.com/covidApi/v1/italy?apiKey=${apiKey}&orderBy=nuovi_positivi&sortBy=desc`;
 /**
  *
  * @returns
